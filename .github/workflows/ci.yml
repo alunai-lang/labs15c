@@ -60,7 +60,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Re-checks out the code for deployment
+        uses: actions/checkout@v2  #  Re-checks out the code for deployment
 
       - name: Deploy to Vercel
         env:
