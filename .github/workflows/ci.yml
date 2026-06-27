@@ -115,3 +115,10 @@ jobs:
           component: false
           record: false
           publish-summary: true
+      - name: Subir Todos los Screenshots
+        uses: actions/upload-artifact@v4
+        if: always() # 👈 CAMBIO: Se ejecuta siempre, pase o falle el pipeline
+        with:
+          name: cypress-screenshots
+          path: cypress-tests/cypress/screenshots/
+          if-no-files-found: warn # Te avisará si olvidaste poner cy.screenshot() en tus pruebas exitosas
