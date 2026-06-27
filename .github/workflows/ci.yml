@@ -69,3 +69,34 @@ jobs:
         #run: npx vercel --prod  # Runs the Vercel deployment in production mode
         #env:
         #  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Uses the Vercel token from GitHub Secrets
+
+  # NUEVO JOB: Ejecuta Cypress desde tu repositorio externo de GitHub
+  cypress-e2e:
+    name: Cypress E2E Tests
+    runs-on: ubuntu-latest
+    needs: deploy  # Espera a que la app esté publicada en Vercel antes de probar
+
+    steps:
+      # 1. Descarga el repositorio donde tienes guardado Cypress
+      - name: Checkout Cypress repo
+        uses: actions/checkout@v4
+        with:
+          # REEMPLAZA: Pon tu usuario/organización y el nombre del repositorio de Cypress
+          repository: 'alunai-lang/cypress15c'
+          # REEMPLAZA: Crea un GitHub Personal Access Token (PAT) y guárdalo en Settings -> Secrets
+          token: ${{ secrets.MI_GITHUB_TOKEN_REPOS }}
+          path: 'cypress-tests' # Descarga las pruebas en esta subcarpeta
+
+      # 2. Configura Node.js para las pruebas
+      - name: Set up Node.js for Cypress
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      # 3. Lanza Cypress apuntando directamente a tu web en Vercel
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: cypress-tests
+          # REEMPLAZA: Cambia 'https://vercel.app' por tu URL real de Vercel
+          config: baseUrl=https://labs15c-kum941qfh-ados-projects-0eb7f124.vercel.app/
