@@ -98,5 +98,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: cypress-tests
+          install: false # This prevents the action from searching for a lockfile here
           # REEMPLAZA: Cambia 'https://vercel.app' por tu URL real de Vercel
           config: baseUrl=https://labs15c-kum941qfh-ados-projects-0eb7f124.vercel.app/
