@@ -93,15 +93,6 @@ jobs:
         with:
           node-version: 18.x
 
-      # # 3. Lanza Cypress apuntando directamente a tu web en Vercel
-      # - name: Run Cypress tests
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     working-directory: cypress-tests
-      #     install: false # This prevents the action from searching for a lockfile here
-      #     # REEMPLAZA: Cambia 'https://vercel.app' por tu URL real de Vercel
-      #     config: baseUrl=https://labs15c-kum941qfh-ados-projects-0eb7f124.vercel.app/
-
       - name: Install Dependencies
         run: npm install #' / 'yarn install' / 'pnpm install'
         working-directory: cypress-tests # 👈 This tells npm where to find package.json
@@ -111,6 +102,7 @@ jobs:
         with:
           working-directory: cypress-tests
           install: false
+          config-file: cypress.config.ts 
           config: baseUrl=https://labs15c-kum941qfh-ados-projects-0eb7f124.vercel.app/
           component: false
           record: false
